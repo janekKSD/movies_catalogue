@@ -47,3 +47,20 @@ def get_single_movie_cast(movie_id):
     }
     response = requests.get(endpoint, headers=headers)
     return response.json()["cast"]
+
+
+def get_popular_movies():
+    endpoint = "https://api.themoviedb.org/3/movie/popular"
+    headers = {
+        "Authorization": f"Bearer {API_TOKEN}"
+    }
+    response = requests.get(endpoint, headers=headers)
+    return response.json()
+
+def get_genres():
+    endpoint = "https://api.themoviedb.org/3/genre/movie/list"
+    headers = {
+        "Authorization": f"Bearer {API_TOKEN}"
+    }
+    response = requests.get(endpoint, headers=headers)
+    return response.json()

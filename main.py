@@ -2,13 +2,20 @@ from flask import Flask, render_template, make_response, jsonify, request
 import tmdb_client
 
 app = Flask(__name__)
+type_list = {"popular": "Popularne", "now_playing": "Na czasie", "top_rated": "Najelpiej oceniane", "upcoming": "Wkrótce"}
 
 @app.route('/')
 def homepage():
-    selected_list = request.args.get('list_type', "popular")
+    selected_list = request.args.get('list_type', 'popular')
+    if selected_list not in type_list:
+        selected_list = 'popular'
     #movies = tmdb_client.get_random_movies(10)
-    movies = tmdb_client.get_movies(how_many=8, list_type=selected_list)
-    return render_template("homepage.html", movies=movies, current_list=selected_list)
+    how_many = int(request.args.get('how_many', 8))
+    movies = tmdb_client.get_movies(how_many, list_type=selected_list)
+    genres = tmdb_client.get_genres()['genres']
+    genre_id = int(request.args.get('genre_id', 0))
+   
+    return render_template("homepage.html", movies=movies, current_list=selected_list, genres=genres, genre_id=genre_id, type_list=type_list, how_many=how_many)
 
 @app.context_processor
 def utility_processor():

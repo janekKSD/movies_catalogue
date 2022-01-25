@@ -1,19 +1,22 @@
 {% extends "index.html" %}
 
 {% block content %}
-
 <div class="row">
     <div class="col-lg-12 text-center">
         <h1 class="mt-5">Witaj w mojej bibliotece filmów</h1>
         <p class="lead">Znajdziesz tutaj tylko najlepsze tytuły!</p>
     </div>
     <div class="col-lg-12 mb-4">
-        <a href="{{ url_for('homepage', list_type="now_playing") }}" class="btn btn-outline-info">Now Playing</a>
-        <a href="{{ url_for('homepage', list_type="popular") }}" class="btn btn-outline-info">Popular</a>
-        <a href="{{ url_for('homepage', list_type="upcoming") }}" class="btn btn-outline-info">Upcoming</a>
-        <a href="{{ url_for('homepage', list_type="top_rated") }}" class="btn btn-outline-info">Top rated</a>
+        {% for type in type_list %}
+            {% if current_list==type %}
+                <a href="{{ url_for('homepage', list_type=type) }}" class="btn btn-outline-info active" role="button" aria-pressed="true" >{{ type_list[type] }}</a>
+            {% else %}
+            <a href="{{ url_for('homepage', list_type=type, genre_id=genre_id, how_many=how_many) }}" class="btn btn-outline-info">{{ type_list[type] }}</a>
+            {% endif %}
+        {% endfor %}
     </div>
     {% for movie in movies %}
+    {% if genre_id in movie.genre_ids or genre_id == 0 %}
     <div class="col-lg-3 col-md-6 mb-4">
         <div class="card h-100">
             <img class="card-img-top" src="{{ tmdb_image_url(movie.poster_path, "w780") }}" alt="">
@@ -25,7 +28,7 @@
             </div>
         </div>
     </div>
+    {% endif %}
     {% endfor %}
  </div>
- 
 {% endblock %} 

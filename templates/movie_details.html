@@ -2,12 +2,9 @@
 
 {% block content %}
 <div class="container">
-
    <h1 class="my-4">
        {{ movie.title }}
    </h1>
-
-
    <div class="row">
      <div class="col-md-8">
        <img class="img-fluid" src= {{ tmdb_image_url(movie.backdrop_path, "w780") }} alt="">
@@ -41,5 +38,4 @@
        {% endfor %}
    </div>
  </div>
-
 {% endblock %}
