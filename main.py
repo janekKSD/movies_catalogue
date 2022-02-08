@@ -9,12 +9,12 @@ def homepage():
     selected_list = request.args.get('list_type', 'popular')
     if selected_list not in type_list:
         selected_list = 'popular'
-    #movies = tmdb_client.get_random_movies(10)
-    how_many = int(request.args.get('how_many', 8))
+    how_many = tmdb_client.create_int(request.args.get('how_many', 8))
     movies = tmdb_client.get_movies(how_many, list_type=selected_list)
     genres = tmdb_client.get_genres()['genres']
-    genre_id = int(request.args.get('genre_id', 0))
-   
+    genre_id = tmdb_client.create_int(request.args.get('genre_id', 0))
+    
+
     return render_template("homepage.html", movies=movies, current_list=selected_list, genres=genres, genre_id=genre_id, type_list=type_list, how_many=how_many)
 
 @app.context_processor

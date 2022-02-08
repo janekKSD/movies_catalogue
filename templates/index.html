@@ -23,7 +23,7 @@
                                 <li><a class="dropdown-item" href="{{ url_for('homepage', genre_id=0, list_type=current_list, how_many=how_many) }}">Wszystkie</a></li>
                                 <li><hr class="dropdown-divider" /></li>
                                 {% for genre in genres %}
-                                <li><a class="dropdown-item" href="{{ url_for('homepage', genre_id=genre.id, list_type=current_list, how_many=20) }}">{{ genre.id, genre.name }}</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('homepage', genre_id=genre.id, list_type=current_list, how_many=20) }}">{{ genre.name }}</a></li>
                                 {% endfor %}
                             </ul>
                         </li>

@@ -1,7 +1,9 @@
-import requests
+import requests, os
 from random import sample
 
 API_TOKEN ="eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ZDc1MTkwZTg2M2JhNDU2YmNmMWQ2Y2YwMTZhMzU1ZiIsInN1YiI6IjYxZTg0Nzg5YmM4NjU3MDA0MzE3MTNiYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.lj9a6DFtw3zXyN2g6zRpcCwChtMtgsjoVojUSaEI_zw"
+#API_TOKEN = os.environ.get("API_TOKEN")
+#print(API_TOKEN)
 
 def get_popular_movies():
     endpoint = "https://api.themoviedb.org/3/movie/popular"
@@ -64,3 +66,15 @@ def get_genres():
     }
     response = requests.get(endpoint, headers=headers)
     return response.json()
+
+def get_search(query, movies_list):
+    results_search = []
+    if query in movies_list:
+        results_search.append(query)
+
+def create_int(data):
+    try:
+        int(data)
+        return (int(data))
+    except ValueError:
+        return 0
