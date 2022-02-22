@@ -1,0 +1,1 @@
+print("push póbne z lapka")
